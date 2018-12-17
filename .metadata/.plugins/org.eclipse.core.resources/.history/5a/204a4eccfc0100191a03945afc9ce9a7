@@ -1,0 +1,20 @@
+server:
+  port: 8082
+  
+axon:
+  eventhandling:
+    processors:
+      "[summaryGroup]":
+        mode: TRACKING
+        threadCount: 1
+        batchSize: 1
+
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update       
+    show-sql: true

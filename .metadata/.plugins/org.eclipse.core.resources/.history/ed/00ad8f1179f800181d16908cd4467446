@@ -1,0 +1,31 @@
+package br.com.coderef.configuration;
+
+import com.rabbitmq.client.Channel;
+import lombok.extern.slf4j.Slf4j;
+
+import org.axonframework.amqp.eventhandling.AMQPMessageConverter;
+import org.axonframework.amqp.eventhandling.spring.SpringAMQPMessageSource;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+@Slf4j
+@Configuration
+public class AmqpConfiguration {
+
+	@Bean
+	public SpringAMQPMessageSource myQueueMessageSource(AMQPMessageConverter messageConverter) {
+	    return new SpringAMQPMessageSource(messageConverter) {
+	​
+	        @RabbitListener(queues = "myQueue")
+	        @Override
+	        public void onMessage(Message message, Channel channel) throws Exception {
+	            super.onMessage(message, channel);
+	        }
+	    };
+	}
+   
+
+}
